@@ -16,9 +16,9 @@ FROM teachers
 JOIN assistance_requests ON teachers.id = teacher_id
 JOIN students ON student_id = students.id
 JOIN cohorts ON students.cohort_id = cohorts.id
-WHERE cohorts.name = '${cohort}'
+WHERE cohorts.name = $1
 ORDER BY teachers.name;
-`)
+`, [cohort])
 .then(res => {
   res.rows.forEach(user => {
     console.log(`${user.cohort}: ${user.teacher}`);
